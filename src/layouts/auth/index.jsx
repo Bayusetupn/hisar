@@ -1,11 +1,9 @@
-import authImg from "assets/img/auth/auth.png";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { login } from "routes.js";
 import FixedPlugin from "components/fixedPlugin/FixedPlugin";
 import { useIsAuthenticated, useAuthUser } from "react-auth-kit";
 
 export default function Auth() {
-  const isAuth = useIsAuthenticated();
   const auth = useAuthUser()
 
   switch (auth()) {
