@@ -1,9 +1,7 @@
 
-import { MdArrowBack, MdArrowBackIosNew } from "react-icons/md";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { useState, useEffect } from "react";
-import { useLocation, useNavigate, redirect } from "react-router";
-import { useSignOut } from "react-auth-kit";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 import api from '../../../api/axios.js';
 import Checkbox from "components/checkbox/index.jsx";
 

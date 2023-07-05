@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Navbar from "components/navbar";
 import Sidebar from "components/sidebar";
-import Footer from "components/footer/Footer";
 import {routes} from "routes.js";
-import Error404 from "layouts/error/404";
 import api from "../../api/axios.js";
 
 export default function Admin(props) {

@@ -20,7 +20,6 @@ import SignIn from "views/auth/SignIn";
 
 // Icon Imports
 import {
-  MdEmojiPeople,
   MdHome,
   MdPeople,
   MdPeopleAlt,

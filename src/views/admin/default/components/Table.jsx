@@ -2,7 +2,7 @@ import Card from "components/card";
 import { TbPencil, TbTrash } from "react-icons/tb";
 import { useEffect, useState } from "react";
 import api from "../../../../api/axios.js";
-import { IoOpenOutline, IoSearch, IoSearchCircleOutline, } from "react-icons/io5";
+import { IoOpenOutline, IoSearch } from "react-icons/io5";
 import { useNavigate } from "react-router";
 
 const ComplexTable = (props) => {

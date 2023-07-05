@@ -1,11 +1,7 @@
 
-import { IoAdd, IoPeople} from "react-icons/io5";
-import {  MdVerifiedUser } from "react-icons/md";
+import { IoAdd} from "react-icons/io5";
 
-
-import Widget from "components/widget/Widget";
 import AgenTable from "../default/components/Table";
-import DailyTraffic from "../default/components/DailyTraffic";
 
 import api from "../../../api/axios.js";
 import { useEffect, useState } from "react";
