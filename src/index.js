@@ -10,10 +10,10 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
   <AuthProvider 
-    authType={'localstorage'}
+    authType={'cookie'}
     authName={"_auth"}
-    //cookieDomain={window.location.hostname}
-    //cookieSecure={window.location.protocol === "https:"}
+    cookieDomain={window.location.hostname}
+    cookieSecure={window.location.protocol === "https:"}
   >
     <App />
   </AuthProvider>
