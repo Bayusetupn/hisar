@@ -1,1 +1,1 @@
-export const url = "https://hisar-apiss.onrender.com"
+export const url = "https://main-api-hzuk.onrender.com"
