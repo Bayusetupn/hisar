@@ -13,7 +13,7 @@ root.render(
     authType={'cookie'}
     authName={"_auth"}
     cookieDomain={window.location.hostname}
-    cookieSecure={true}
+    cookieSecure={window.location.protocol === "https:"}
   >
     <App />
   </AuthProvider>
