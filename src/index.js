@@ -12,8 +12,8 @@ root.render(
   <AuthProvider 
     authType={'localstorage'}
     authName={"_auth"}
-    cookieDomain={window.location.hostname}
-    cookieSecure={window.location.protocol === "https:"}
+    //cookieDomain={window.location.hostname}
+    //cookieSecure={window.location.protocol === "https:"}
   >
     <App />
   </AuthProvider>
