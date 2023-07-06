@@ -1,1 +1,1 @@
-export const url = "https://nutty-jumpsuit-slug.cyclic.app"
+export const url = "https://shy-lime-salmon-toga.cyclic.app/"
