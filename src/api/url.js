@@ -1,1 +1,1 @@
-export const url = "https://shy-lime-salmon-toga.cyclic.app/"
+export const url = "https://hisar-apiss.onrender.com"
