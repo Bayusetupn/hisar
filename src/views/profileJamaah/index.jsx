@@ -16,6 +16,17 @@ const ProfileOverview = () => {
   const location = useLocation()
   const [dataperkab, setDataPerkab] = useState([''])
   const [files,setFiles] = useState('')
+  const [nama,setNama] = useState('')
+
+ const oleh = async()=>{
+  try {
+    await api.get(`/agen/${location.state.di_daftarkan}`,{withCredentials: true}).then(res=>{
+      setNama(res.data.data.nama)
+    })
+  } catch (err) {
+    
+  }
+ }
 
   const perkab = async () => {
     try {
@@ -38,6 +49,7 @@ const ProfileOverview = () => {
   }
 
   useEffect(() => {
+    oleh()
     perkab()
     file()
   }, [])
@@ -61,7 +73,7 @@ const ProfileOverview = () => {
             alamat={location.state.alamat}
             gabung={location.state.dibuat}
             dp={location.state.dp}
-            agen={location.state.di_daftarkan}
+            agen={nama}
             paket={location.state.paket}
             berangkat={location.state.berangkat}
           />

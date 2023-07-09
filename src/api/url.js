@@ -1,1 +1,1 @@
-export const url = "https://hisar-api.onrender.com"
+export const url = "http://0.tcp.ap.ngrok.io:18272"

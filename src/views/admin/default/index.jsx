@@ -1,7 +1,7 @@
 import { IoPeople,  } from "react-icons/io5";
 import { MdVerifiedUser } from "react-icons/md";
 
-
+import JamaahTable from './components/JamaahTable'
 import Widget from "components/widget/Widget";
 import ComplexTable from "views/admin/default/components/ComplexTable";
 import DailyTraffic from "views/admin/default/components/DailyTraffic";
@@ -10,17 +10,17 @@ import { useEffect, useState } from "react";
 
 const Dashboard = () => {
 
-  const [totalAgen,setTotalAgen] = useState()
-  const [totalUstad,setTotalUstad] = useState()
-  const [totalJamaah,setTotalJamaah] = useState()
+  const [totalAgen,setTotalAgen] = useState(0)
+  const [totalUstad,setTotalUstad] = useState(0)
+  const [totalJamaah,setTotalJamaah] = useState(0)
   const [dataAgen,setDataAgen] = useState([''])
+  const [dataJamaah,setdataJamaah] = useState([''])
   const [dataUstad,setDataUstad] = useState([''])
 
   const totalA = async()=>{
     try {
       await api.get('/agen',{ withCredentials: true}).then(res=>{
         setDataAgen(res.data.userData)
-        console.log(res.data.userData)
         setTotalAgen(res.data.userData.length)
       })
     } catch (err) {
@@ -40,7 +40,8 @@ const Dashboard = () => {
   const jamaah = async() =>{
     try {
       await api.get('/jamaah/all',{withCredentials: true}).then(res=>{
-        setTotalJamaah(res.data.respon.length)
+        setTotalJamaah(res.data.dataJamaah.length)
+        setdataJamaah(res.data.dataJamaah)
       })
     } catch (err) {
       console.log(err)
@@ -53,14 +54,6 @@ const Dashboard = () => {
     totalA()
     totalU()
     jamaah()
-    const interval = setInterval(() => {
-      totalA()
-      totalU()
-    }, 500000);
-
-    return () => {
-      clearInterval(interval);
-    };
   },[])
     
   
@@ -113,6 +106,15 @@ const Dashboard = () => {
           limit={5}
           side={"Lihat Selengkapnya"}
           navigate={'/admin/ustad'}
+          replaces={false}
+        />
+
+  <JamaahTable
+          title={"Daftar Jamaah"}
+          data={dataJamaah}
+          limit={5}
+          side={"Lihat Selengkapnya"}
+          navigate={'/admin/jamaah'}
           replaces={false}
         />
       </div>

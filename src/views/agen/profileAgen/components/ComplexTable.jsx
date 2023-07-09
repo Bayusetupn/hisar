@@ -70,6 +70,13 @@ const ComplexTable = (props) => {
                 className="border-b border-gray-200 pr-5 pb-[10px] text-start dark:!border-navy-700"
               >
                 <p className="text-md tracking-wide text-navy-700 font-bold text-md dark:text-white">
+                  Di Daftarkan
+                </p>
+              </th>
+              <th
+                className="border-b border-gray-200 pr-5 pb-[10px] text-start dark:!border-navy-700"
+              >
+                <p className="text-md tracking-wide text-navy-700 font-bold text-md dark:text-white">
                   Bergabung pada Tanggal
                 </p>
               </th>
@@ -107,6 +114,7 @@ const ComplexTable = (props) => {
                 <td className="py-2 pr-5" >{list.alamat}</td>
                 <td className="py-2" >{list.no_telepon}</td>
                 <td className="py-2" >{list.paket}</td>
+                <td className="py-2" >{nama}</td>
                 <td className="py-2" >{list.dibuat_pada}</td>
                 <td className="py-2" >{list.berangkat ? list.berangkat : "Belum ditentukan"}</td>
                 <td className="py-2" >{list.dp ? "Lunas" : "Belum Lunas"}</td>

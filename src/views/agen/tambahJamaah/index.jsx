@@ -47,7 +47,7 @@ const ProfileOverview = () => {
                     <div className="flex flex-row justify-between flex-wrap gap-5">
                         <form onChange={()=>setErrMsg('')} onSubmit={(e)=>{
                             handleSubmit(e)
-                            navigate('/agen/jamaah')
+                            navigate('/agen/dashboard')
                         }} className="flex-grow">
                             <label className="text-sm" >Nama Jamaah</label>
                             <input onChange={e=>setFormData({...formData,nama: e.target.value  })} required placeholder="Nama Jamaah" className="dark:focus:border-white transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >

@@ -108,7 +108,7 @@ const ProfileOverview = () => {
   }, [])
 
   return (
-    <div className="flex h-screen overflow-scroll flex-col gap-5 p-5 dark:!bg-navy-900">
+    <div className="flex h-screen overflow-auto flex-col gap-5 p-5 dark:!bg-navy-900">
       <div className="w-fit mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-1">
         <div className="flex flex-direction-row items-center cursor-pointer dark:text-white" onClick={() => navigate(-1, { replace: true })}>
           <IoMdArrowRoundBack className="h-7 w-7 mr-2" />

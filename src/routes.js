@@ -14,6 +14,7 @@ import Jamaahku from 'views/agen/daftarJamaah'
 import UstadDash from 'views/ustad/dashboard'
 import JamaahUstad from 'views/ustad/daftarJamaah'
 import DaftarUstads from "views/ustad/daftarUstad";
+import DaftarJamaah from 'views/admin/daftarJamaah'
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
@@ -24,6 +25,7 @@ import {
   MdPeople,
   MdPeopleAlt,
 } from "react-icons/md";
+import { IoMdPeople } from "react-icons/io";
 
 const profile = [
   {
@@ -128,6 +130,13 @@ const routes = [
     icon: <IoPeople className="h-6 w-6" />,
     component: <DaftarUstad/>
   },
+  {
+    name: "Daftar Jamaah",
+    layout: "/admin",
+    path: "jamaah",
+    icon: <IoMdPeople className="h-6 w-6"/>,
+    component: <DaftarJamaah/>
+  }
   /*{
     name: "NFT Marketplace",
     layout: "/admin",
