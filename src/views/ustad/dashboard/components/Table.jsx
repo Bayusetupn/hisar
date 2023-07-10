@@ -75,7 +75,7 @@ const ComplexTable = (props) => {
         </p>
         </div>
       </div>
-      <div class="mt-5 overflow-x-scroll xl:overflow-x-hidden">
+      <div class="mt-5 overflow-x-auto xl:overflow-x-hidden">
         <table className="w-full">
           <thead>
             <tr>

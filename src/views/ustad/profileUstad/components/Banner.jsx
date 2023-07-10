@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import user from 'assets/img/user.jpg'
 import Card from "components/card";
-import { useNavigate } from "react-router";
 import { url } from "../../../../api/url.js";
 
 
 
 const Banner = (props) => {
-  const navigate = useNavigate()
 
   const {gabung,foto,alamat,no,nama,username} = props
-  const [fotos,setFotos] = useState()
-  const [img,setImg] = useState(foto)
 
   return (
     <Card extra={"items-center w-full h-fit p-[16px] bg-cover"}>
@@ -28,7 +24,7 @@ const Banner = (props) => {
         </h4>
         </div>
         <p className="text-base font-normal text-gray-700 dark:text-white">
-          {"Agen"}
+          {"Ustad"}
         </p>
       </div>
 

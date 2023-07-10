@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Dropdown from "components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
 import { BsArrowBarUp } from "react-icons/bs";
@@ -10,13 +10,25 @@ import { useSignOut } from 'react-auth-kit'
 import { useNavigate } from "react-router";
 import user from '../../assets/img/user.jpg'
 import { url } from "../../api/url.js";
-
+import { reactLocalStorage } from "reactjs-localstorage";
 
 const Navbar = (props) => {
   const  navigate = useNavigate()
   const { onOpenSidenav, brandText,name,foto } = props;
   const [darkmode, setDarkmode] = React.useState(false);
   const logout = useSignOut()
+
+  useEffect(()=>{
+    if (reactLocalStorage.get('theme')) {
+      document.body.classList.add("dark");
+      reactLocalStorage.set('theme',true)
+      setDarkmode(true);
+    } else {
+      document.body.classList.remove("dark");
+      reactLocalStorage.remove('theme')
+      setDarkmode(false);
+    }
+  },[])
 
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
@@ -90,12 +102,14 @@ const Navbar = (props) => {
         <div
           className="cursor-pointer text-gray-600"
           onClick={() => {
-            if (darkmode) {
+            if (reactLocalStorage.get('theme')) {
               document.body.classList.remove("dark");
-              setDarkmode(false);
+              reactLocalStorage.remove('theme')
+              setDarkmode(!darkmode);
             } else {
               document.body.classList.add("dark");
-              setDarkmode(true);
+              reactLocalStorage.set('theme',true)
+              setDarkmode(!darkmode);
             }
           }}
         >

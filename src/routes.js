@@ -14,7 +14,10 @@ import Jamaahku from 'views/agen/daftarJamaah'
 import UstadDash from 'views/ustad/dashboard'
 import JamaahUstad from 'views/ustad/daftarJamaah'
 import DaftarUstads from "views/ustad/daftarUstad";
-import DaftarJamaah from 'views/admin/daftarJamaah'
+import DaftarJamaah from 'views/admin/daftarJamaah';
+import RankAdmin from 'views/admin/rank'
+import RankAgen from 'views/agen/rank'
+import RankUstad from 'views/ustad/rank'
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
@@ -22,6 +25,7 @@ import SignIn from "views/auth/SignIn";
 // Icon Imports
 import {
   MdHome,
+  MdLeaderboard,
   MdPeople,
   MdPeopleAlt,
 } from "react-icons/md";
@@ -82,6 +86,13 @@ const agen = [
     component: <Jamaahku />
     
   },
+  {
+    name: "Ranking",
+    layout: "/agen",
+    path: "ranking",
+    icon: <MdLeaderboard className="h-6 w-6"/>,
+    component: <RankAgen/>
+  }
 ]
 
 const ustad = [
@@ -106,6 +117,13 @@ const ustad = [
     icon: <MdPeople className="h-6 w-6" />,
     component: <JamaahUstad/>
   },
+  {
+    name: "Ranking",
+    layout: "/ustad",
+    path: "ranking",
+    icon: <MdLeaderboard className="h-6 w-6"/>,
+    component: <RankUstad/>
+  }
 ]
 
 const routes = [
@@ -136,7 +154,14 @@ const routes = [
     path: "jamaah",
     icon: <IoMdPeople className="h-6 w-6"/>,
     component: <DaftarJamaah/>
+  },{
+    name: "Ranking",
+    layout: "/admin",
+    path: "ranking",
+    icon: <MdLeaderboard className="h-6 w-6"/>,
+    component: <RankAdmin/>
   }
+
   /*{
     name: "NFT Marketplace",
     layout: "/admin",
