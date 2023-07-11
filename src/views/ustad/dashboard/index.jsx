@@ -11,7 +11,10 @@ const Dashboard = () => {
   const [totalUstad,setTotalUstad] = useState()
   const [dataUstad,setDataUstad] = useState([''])
   const [dataJamaah,setDataJamaah] = useState([''])
-    
+
+  const date = new Date()
+  const month = date.getMonth()
+
   const agen = async() =>{
     try {
       await api.get('/ustad',{withCredentials: true}).then(res=>{
@@ -52,7 +55,7 @@ const Dashboard = () => {
         <Widget
           icon={<MdCalendarToday className="h-7 w-7" />}
           title={"Jamaah Bulan Ini"}
-          subtitle={"+ " + dataJamaah.length}
+          subtitle={"+ " + dataJamaah.filter(data=> new Date(data.dibuat_pada).getMonth() == month).length}
         />
       </div>
       <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-1">
