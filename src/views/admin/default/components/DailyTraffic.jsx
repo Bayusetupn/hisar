@@ -3,12 +3,18 @@ import { barChartDataDailyTraffic } from "variables/charts";
 import { barChartOptionsDailyTraffic } from "variables/charts";
 import Card from "components/card";
 const DailyTraffic = (props) => {
+  
+  const {title} = props
+
   return (
     <Card extra="pb-7 p-[20px]">
       <div className="flex flex-row justify-between">
-        <div className="ml-1 pt-2">
-          <p className="text-xl font-medium leading-4 text-navy-700 font-bold dark:text-white">
-            Perkembangan {props.title}
+        <div className="ml-1 pt-2 flex flex-col gap-2">
+          <p className="text-xl  font-medium leading-4 text-navy-700 font-bold dark:text-white">
+            Perkembangan {title}
+          </p>
+          <p>
+            7 Bulan terakhir
           </p>
         </div>
         <div className="mt-2 flex items-start">
@@ -19,9 +25,8 @@ const DailyTraffic = (props) => {
         </div>
       </div>
 
-      <div className="h-[300px] w-full pt-10 pb-0">
+      <div  className="h-[300px] w-full pt-10 pb-0">
         <BarChart
-          chartData={barChartDataDailyTraffic}
           chartOptions={barChartOptionsDailyTraffic}
         />
       </div>

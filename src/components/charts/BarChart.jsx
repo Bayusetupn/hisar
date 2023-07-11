@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import Chart from 'react-apexcharts';
+import api from '../../api/axios.js'
 
+const date = new Date()
+const month = date.getMonth()
 class BarChart extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -10,11 +14,26 @@ class BarChart extends Component {
     };
   }
 
+  
+
   componentDidMount() {
-    this.setState({
-      chartData: this.props.chartData,
-      chartOptions: this.props.chartOptions,
-    });
+    api.get('/agen',{withCredentials: true}).then(res=>{
+      this.setState({
+        chartData: [{
+          name: "Perkembangan",
+          data: [
+            res.data.userData.filter(res=> new Date(res.dibuat_pada).getMonth() === month-6).length,
+            res.data.userData.filter(res=> new Date(res.dibuat_pada).getMonth() === month-5).length,
+            res.data.userData.filter(res=> new Date(res.dibuat_pada).getMonth() === month-4).length,
+            res.data.userData.filter(res=> new Date(res.dibuat_pada).getMonth() === month-3).length,
+            res.data.userData.filter(res=> new Date(res.dibuat_pada).getMonth() === month-2).length,
+            res.data.userData.filter(res=> new Date(res.dibuat_pada).getMonth() === month-1).length,
+            res.data.userData.filter(res=> new Date(res.dibuat_pada).getMonth() === month).length]
+        }],
+        chartOptions: this.props.chartOptions,
+      });
+    })
+    
   }
 
   render() {
