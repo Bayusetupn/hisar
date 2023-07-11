@@ -11,6 +11,9 @@ const Dashboard = () => {
   const [totalAgen,setTotalAgen] = useState()
   const [dataAgen,setDataAgen] = useState([''])
   const [dataJamaah,setDataJamaah] = useState([''])
+  
+  const date = new Date()
+  const month = date.getMonth()
     
   const agen = async() =>{
     try {
@@ -31,6 +34,7 @@ const Dashboard = () => {
     } catch (err) {
     }
   }
+
   
   useEffect(()=>{
     agen()
@@ -53,7 +57,7 @@ const Dashboard = () => {
         <Widget
           icon={<MdCalendarToday className="h-7 w-7" />}
           title={"Jamaah Bulan Ini"}
-          subtitle={"+ " + dataJamaah.length}
+          subtitle={"+ " + dataJamaah.filter(data=> new Date(data.dibuat_pada).getMonth() == month).length}
         />
       </div>
       <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-1">
