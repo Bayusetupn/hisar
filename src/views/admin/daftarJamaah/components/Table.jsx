@@ -128,7 +128,6 @@ const ComplexTable = (props) => {
                 || item.dibuat_pada.toString().toLowerCase().includes(search.toLowerCase())
                 || item.berangkat?.toString().toLowerCase().includes(search.toLowerCase())
                 || item.daftarkan.toString().toLowerCase().includes(search.toLowerCase())
-                || search.toLowerCase() == "lunas"? item.dp:null || search.toLowerCase() == "belum lunas"? item.dp:null
               }else{
                 return item
               }
