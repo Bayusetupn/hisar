@@ -117,8 +117,21 @@ const ComplexTable = (props) => {
             </tr>
           </thead>
           <tbody className="overflow-y-scroll h-9/12">
-          {data? data.filter(nama=>{
-              return !search || search.toLowerCase() === ''? nama : nama.nama.toLowerCase().includes(search)
+          {data? data.filter(item=>{
+              if (search) {
+                return item.nama.toLowerCase().includes(search.toLowerCase()) 
+                || item.alamat.toLowerCase().includes(search.toLowerCase())
+                || item.ktp.includes(parseInt(search))
+                || item.jenis_kelamin.toLowerCase().includes(search.toLowerCase())
+                || item.no_telepon.includes(parseInt(search))
+                || item.paket.toLowerCase().includes(search.toLowerCase())
+                || item.dibuat_pada.toString().toLowerCase().includes(search.toLowerCase())
+                || item.berangkat?.toString().toLowerCase().includes(search.toLowerCase())
+                || item.daftarkan.toString().toLowerCase().includes(search.toLowerCase())
+                || search.toLowerCase() == "lunas"? item.dp:null || search.toLowerCase() == "belum lunas"? item.dp:null
+              }else{
+                return item
+              }
             }).slice(0, limit).map((list, index) => {
               return <tr className="font-md text-md font-medium text-gray-700 dark:text-white" key={index} >
                 <td className="py-2">{list.ktp}</td>
