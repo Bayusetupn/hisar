@@ -17,10 +17,17 @@ const ComplexTable = (props) => {
           </p>
         </div>
       </div>
-      <div className="mt-8 overflow-scroll xl:overflow-hidden">
+      <div className="mt-8 overflow-auto xl:overflow-hidden">
         <table className="w-full table-auto">
           <thead>
             <tr>
+            <th
+                className="border-b border-gray-200 pr-5 pb-[10px] text-start dark:!border-navy-700"
+              >
+                <p className="text-md tracking-wide text-navy-700 font-bold text-md dark:text-white">
+                  No Ktp
+                </p>
+              </th>
               <th
                 className="border-b border-gray-200 pr-5 pb-[10px] text-start dark:!border-navy-700"
               >
@@ -54,6 +61,7 @@ const ComplexTable = (props) => {
           <tbody>
             {data.slice(0, limit).map((list, index) => {
               return <tr className="font-md text-md font-medium text-gray-700 dark:text-white" key={index} >
+                <td className="py-2" >{list.no_ktp}</td>
                 <td className="py-2" >{list.nama}</td>
                 <td className="py-2" >{list.alamat}</td>
                 <td className="py-2" >{list.no_telepon}</td>

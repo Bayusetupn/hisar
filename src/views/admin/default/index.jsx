@@ -16,8 +16,6 @@ const Dashboard = () => {
   const [dataAgen,setDataAgen] = useState([''])
   const [dataJamaah,setdataJamaah] = useState([''])
   const [dataUstad,setDataUstad] = useState([''])
-  const date = new Date()
-  const month = date.getMonth()
 
   const totalA = async()=>{
     try {

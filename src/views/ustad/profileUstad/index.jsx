@@ -10,13 +10,13 @@ const ProfileOverview = () => {
 
   const navigate = useNavigate()
   const location = useLocation()
-  const [dataAgen, setdataAgen] = useState({id: "",bergabung: "",foto: "",nama: "", alamat: "", no_telepon: "", username: ""})
+  const [dataAgen, setdataAgen] = useState({id: "",bergabung: "",no_ktp:"",foto: "",nama: "", alamat: "", no_telepon: "", username: ""})
   const [dataJamaah,setdataJamaah] = useState([''])
   
   const agen = async() =>{
     try {
       await api.get(`/ustad/${location.state.id}`, {withCredentials: true}).then((res)=>{
-        setdataAgen({id: res.data.data.id,bergabung: res.data.data.dibuat_pada,foto: res.data.data.foto,nama: res.data.data.nama, alamat: res.data.data.alamat, no_telepon: res.data.data.no_telepon, username: res.data.data.username})
+        setdataAgen({id: res.data.data.id,no_ktp:res.data.data.no_ktp,bergabung: res.data.data.dibuat_pada,foto: res.data.data.foto,nama: res.data.data.nama, alamat: res.data.data.alamat, no_telepon: res.data.data.no_telepon, username: res.data.data.username})
       })
       .catch(err=>{
         console.log(err)
@@ -51,7 +51,7 @@ const ProfileOverview = () => {
       </div>
       <div className="w-ful mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-12">
         <div className="col-span-3 lg:!mb-0">
-          <Banner gabung={dataAgen.bergabung} foto={dataAgen.foto} nama={dataAgen.nama} alamat={dataAgen.alamat} no={dataAgen.no_telepon} username={dataAgen.username}/>
+          <Banner ktp={dataAgen.no_ktp} gabung={dataAgen.bergabung} foto={dataAgen.foto} nama={dataAgen.nama} alamat={dataAgen.alamat} no={dataAgen.no_telepon} username={dataAgen.username}/>
         </div>
         <div className="col-span-9">
         <div className="flex flex-col gap-5">

@@ -13,7 +13,7 @@ import { url } from "../../../api/url.js";
 const Banner = (props) => {
   const navigate = useNavigate()
 
-  const {gabung,foto,alamat,no,nama,username} = props
+  const {ktp,gabung,foto,alamat,no,nama,username} = props
   const [fotos,setFotos] = useState()
   const [img,setImg] = useState(foto)
 
@@ -43,6 +43,10 @@ const Banner = (props) => {
       {/* Post followers */}
       <div className="mt-6 mb-3 w-full flex flex-col items-start gap-2 md:!gap-2">
         
+      <div className="flex flex-row items-center justify-center">
+          <p className="text-md font-bold text-navy-700 dark:text-white mr-2">No Ktp :</p>
+          <p className="text-sm font-normal text-gray-700  dark:text-white">{ktp}</p>
+        </div>
         <div className="flex flex-row items-center justify-center">
           <p className="text-md font-bold text-navy-700 dark:text-white mr-2">Username :</p>
           <p className="text-sm font-normal text-gray-700  dark:text-white">{username}</p>
