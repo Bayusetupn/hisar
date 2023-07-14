@@ -17,6 +17,10 @@ const Navbar = (props) => {
   const [darkmode, setDarkmode] = React.useState(false);
   const logout = useSignOut()
 
+  const out = ()=>{
+    return logout()
+  }
+
   useEffect(()=>{
     if (reactLocalStorage.get('theme')) {
       document.body.classList.add("dark");
@@ -146,7 +150,7 @@ const Navbar = (props) => {
                   Profile Anda
                  </a>
                 <a
-                  onClick={e=>{logout()}}
+                  onClick={out}
                   className="mt-3 text-sm font-medium text-red-500 hover:text-red-500 cursor-pointer"
                 >
                   Log Out

@@ -97,14 +97,6 @@ const ProfileOverview = () => {
 
     totalA()
     totalU()
-    const interval = setInterval(() => {
-      totalA()
-      totalU()
-    }, 500000);
-
-    return () => {
-      clearInterval(interval);
-    };
   }, [])
 
   return (

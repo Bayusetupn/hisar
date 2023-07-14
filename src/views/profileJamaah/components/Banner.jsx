@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import avatar from "assets/img/avatars/avatar11.png";
 import banner from "assets/img/profile/banner.png";
 import Card from "components/card";
@@ -10,8 +10,9 @@ import api from "../../../api/axios.js";
 const Banner = (props) => {
   const navigate = useNavigate()
   const [konfir, setkonfir] = useState(false)
-  const [jadwal,setJadwal] = useState('')
-  const [atur,setAtur] = useState(false)
+  const [jadwal, setJadwal] = useState('')
+  const [atur, setAtur] = useState(false)
+  const [riwayat,setRiwayat] = useState([])
 
   const { id, ktp, nama, jenis, telp, alamat, gabung, dp, agen, paket, berangkat } = props;
 
@@ -21,6 +22,19 @@ const Banner = (props) => {
         <TbCheck className="w-6 h-6 mr-1 text-md font bold" />
         <p>Tandai Sudah Dp</p>
       </div>
+    }
+  }
+
+  useEffect(()=>{
+    history()
+  },[])
+
+  const history = async()=>{
+    try {
+      await api.post('/riwayat',{id: id},{withCredentials: true}).then(res=>{
+        setRiwayat(res.data.data)
+      })
+    } catch (err) {
     }
   }
 
@@ -37,21 +51,42 @@ const Banner = (props) => {
 
   const ubahBerangkat = async () => {
     try {
-      await api.put('/jamaah/berangkat', { id: id,berangkat: jadwal }, { withCredentials: true }).then(res => {
+      await api.put('/jamaah/berangkat', { id: id, berangkat: jadwal }, { withCredentials: true }).then(res => {
         return navigate(-1)
       })
     } catch (err) {
     }
   }
 
-  const aturHandle = () =>{
-    if(atur){
-      return <div className="flex flex-row w-full gap-5 items-center">
-      <input type="date" lang="id" placeholder="red"  onChange={(e)=>setJadwal(e.target.value)} className="dark:focus:border-white transition-all flex h-12  items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" />
-      <div onClick={ubahBerangkat} className="linear flex px-7 flex-row w-fit h-fit items-center justify-center cursor-pointer rounded-xl px-4 py-2 text-white bg-brand-500">
-        <p>Atur</p>
+  const aturHandle = () => {
+    if (atur) {
+      return <div className="flex flex-col w-full gap-3 items-start">
+        <div className="flex flex-row gap-3 items-center">
+          <input type="date" lang="id" placeholder="red" onChange={(e) => setJadwal(e.target.value)} className="dark:focus:border-white transition-all flex h-12  items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" />
+          <div onClick={ubahBerangkat} className="linear flex px-7 flex-row w-fit h-fit items-center justify-center cursor-pointer rounded-xl px-4 py-2 text-white bg-brand-500">
+            <p>Atur</p>
+          </div>
+        </div>
+        <div className="flex flex-col text-navy-700 dark:text-white gap-3 text-md font-bold" >
+          <div>
+            <p>Riwayat Jadwal</p>
+          </div>
+          {riwayat? 
+          riwayat.sort((a,b)=>{
+            return b.id - a.id;
+          }).map((res,index)=>{
+
+            return <div className="flex flex-row items-center gap-3" key={index}>
+            <div className="w-2 h-2 bg-navy-700 dark:bg-white rounded-full"></div>
+          <div className="text-sm font-bold text-navy-700 dark:text-white ">
+            <p>{res.value}</p>
+            <p className="text-sm font-normal">Diubah pada : {res.dibuat_pada}</p>
+          </div>
+          </div>
+          })
+          : <div><p>Belum ada riwayat</p></div>}
+        </div>
       </div>
-    </div>
     }
   }
 
@@ -134,11 +169,13 @@ const Banner = (props) => {
             <p className="text-sm font-normal text-gray-700  dark:text-white">{agen}</p>
           </div>
           {dpHandle()}
-          <div onClick={()=>atur? setAtur(false):setAtur(true)} className="linear flex flex-row w-full items-center justify-center cursor-pointer rounded-xl px-4 py-2 text-white bg-brand-500">
+          <div onClick={() =>{
+            setAtur(!atur)
+          }} className="linear mb-2 flex flex-row w-full items-center justify-center cursor-pointer rounded-xl px-4 py-2 text-white bg-brand-500">
             <TbPencil className="w-6 h-6 mr-1 text-md font bold" />
             <p>Atur Jadwal Berangkat </p>
           </div>
-            {aturHandle()}
+          {aturHandle()}
         </div>
       </Card>
     </div>
