@@ -1,11 +1,4 @@
-import { IoArrowBack, IoBackspace } from "react-icons/io5";
 import Banner from "./components/Banner";
-import General from "./components/General";
-import Notification from "./components/Notification";
-import Project from "./components/Project";
-import Storage from "./components/Storage";
-import Upload from "./components/Upload";
-import { MdArrowBack, MdArrowBackIosNew } from "react-icons/md";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import ComplexTable from "./components/ComplexTable";
 import { useState,useEffect } from "react";
@@ -49,7 +42,7 @@ const ProfileOverview = () => {
   },[])
 
   return (
-    <div className="flex w-full flex-col h-full overflow-auto gap-5 p-5 dark:!bg-navy-900">
+    <div className="flex w-full flex-col h-screen overflow-auto gap-5 p-5 dark:!bg-navy-900">
       <div className="w-fit mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-1">
           <div className="flex flex-direction-row items-center cursor-pointer dark:text-white" onClick={()=>navigate(-1)}>
             <IoMdArrowRoundBack className="h-7 w-7 mr-2"/>

@@ -134,15 +134,15 @@ const ComplexTable = (props) => {
                 return item
               }
             }).slice(0, limit).map((list, index) => {
-              console.log(list)
-              return <tr className="font-md text-md font-medium text-gray-700 dark:text-white overflow-scroll" key={index} >
+              return <tr className="font-md text-md font-medium text-gray-700 dark:text-white overflow-auto" key={index} >
                 <td className="py-2" >{list.no_ktp}</td>
                 <td className="py-2" >{list.nama}</td>
                 <td className="py-2" >{list.alamat}</td>
                 <td className="py-2" >{list.no_telepon}</td>
                 <td className="py-2" >{list.total_jamaah}</td>
-                <td className="py-2 flex flex-row">
-                  <IoOpenOutline className="w-6 h-6 cursor-pointer hover:scale-125 transition-all" onClick={()=>navigate('profile', {state: {id: list.id}})} />
+                <td className="py-2 ">
+                <div className="flex flex-row items-center">
+                <IoOpenOutline className="w-6 h-6 cursor-pointer hover:scale-125 transition-all" onClick={()=>navigate('profile', {state: {id: list.id}})} />
                   <TbPencil onClick={() => {
                     return navigate('edit',{state: {id: list.id ,nama : list.nama, alamat: list.alamat, no_telepon: list.no_telepon, username: list.username}})
                   }} className="w-6 h-6 mx-2 cursor-pointer hover:scale-125 transition-all" />
@@ -151,7 +151,8 @@ const ComplexTable = (props) => {
                     setModal(true)
                     setID({...iduser,id: list.id})
                     setRole(list.role)
-                  }} /></td>
+                  }} /></div>  
+                </td>
               </tr>
             })}
           </tbody>

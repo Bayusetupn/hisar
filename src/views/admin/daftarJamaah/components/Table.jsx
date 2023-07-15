@@ -143,7 +143,7 @@ const ComplexTable = (props) => {
                 <td className="py-2" >{list.dibuat_pada}</td>
                 <td className="py-2" >{list.berangkat ? list.berangkat : "Belum ditentukan"}</td>
                 <td className="py-2" >{list.dp ? "Lunas" : "Belum Lunas"}</td>
-                <td className="py-2 flex flex-row gap-2">
+                <td className="py-2 ">
                   <IoOpenOutline className="w-6 h-6 cursor-pointer hover:scale-125 transition-all" onClick={() => {
                     navigate('profile', {
                       state: {

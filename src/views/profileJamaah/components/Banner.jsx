@@ -58,6 +58,7 @@ const Banner = (props) => {
     }
   }
 
+
   const aturHandle = () => {
     if (atur) {
       return <div className="flex flex-col w-full gap-3 items-start">

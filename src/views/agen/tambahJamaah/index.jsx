@@ -1,9 +1,7 @@
 
-import { MdArrowBack, MdArrowBackIosNew } from "react-icons/md";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate, redirect } from "react-router";
-import { useSignOut } from "react-auth-kit";
 import api from '../../../api/axios.js';
 
 const ProfileOverview = () => {
