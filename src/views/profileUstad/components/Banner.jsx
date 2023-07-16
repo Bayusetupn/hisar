@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import avatar from "assets/img/avatars/avatar11.png";
 import banner from "assets/img/profile/banner.png";
 import Card from "components/card";
@@ -9,7 +9,11 @@ import user from '../../../assets/img/user.jpg'
 const Banner = (props) => {
   const navigate = useNavigate()
 
-  const {ktp,gabung,foto,alamat,no,nama,username} = props;
+  const {historyData,ktp,gabung,foto,alamat,no,nama,username} = props;
+  const [history, setHistory] = useState(false)
+  
+  const sli = historyData.slice()
+  const datas = sli.reverse()
 
   return (
     <Card extra={"items-center w-full h-fit p-[16px] bg-cover"}>
@@ -57,6 +61,20 @@ const Banner = (props) => {
           <p className="text-md font-bold text-navy-700 dark:text-white mr-2">Bergabung pada tanggal :</p>
           <p className="text-sm font-normal text-gray-700  dark:text-white">{gabung}</p>
         </div>
+        <div onClick={() => setHistory(!history)} className="linear mb-2 flex flex-row w-full items-center justify-center cursor-pointer rounded-xl px-4 py-2 text-white bg-brand-500">
+        <p className="text-md text-white">Riwayat Login</p>
+      </div>
+      <div className="mt-2 flex w-full items-start flex-col text-navy-700 dark:text-white gap-3 text-md font-bold" >
+        {history? datas.slice(0,5).map((data, index) => {
+          return <div className="flex flex-row items-center gap-3" key={index}>
+            <div className="w-2 h-2 bg-navy-700 dark:bg-white rounded-full"></div>
+            <div className="text-sm font-bold text-navy-700 dark:text-white ">
+              <p>{data.login.split("/")[0]}</p>
+              <p className="text-sm font-normal">{data.login.split("/")[1]}</p>
+            </div>
+          </div>
+        }): null}
+      </div>
       </div>
     </Card>
   );

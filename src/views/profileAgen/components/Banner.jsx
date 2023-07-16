@@ -15,6 +15,9 @@ const Banner = (props) => {
 
   const { historyData, ktp, gabung, foto, alamat, no, nama, username } = props
   const [history, setHistory] = useState(false)
+  
+  const sli = historyData.slice()
+  const datas = sli.reverse()
 
   return (
     <Card extra={"items-center w-full h-fit p-[16px] bg-cover"}>
@@ -67,9 +70,7 @@ const Banner = (props) => {
         <p className="text-md text-white">Riwayat Login</p>
       </div>
       <div className="mt-2 flex w-full items-start flex-col text-navy-700 dark:text-white gap-3 text-md font-bold" >
-        {historyData.sort((a, b) => {
-          return b.id - a.id;
-        }).map((data, index) => {
+        {history? datas.slice(0,5).map((data, index) => {
           return <div className="flex flex-row items-center gap-3" key={index}>
             <div className="w-2 h-2 bg-navy-700 dark:bg-white rounded-full"></div>
             <div className="text-sm font-bold text-navy-700 dark:text-white ">
@@ -77,7 +78,7 @@ const Banner = (props) => {
               <p className="text-sm font-normal">{data.login.split("/")[1]}</p>
             </div>
           </div>
-        })}
+        }): null}
       </div>
     </Card>
   );
