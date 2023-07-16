@@ -5,6 +5,9 @@ import api from "../../../../api/axios.js";
 import { IoOpenOutline, IoSearch, IoSearchCircleOutline, } from "react-icons/io5";
 import { useNavigate } from "react-router";
 import { MdBeenhere } from "react-icons/md";
+import diamond from '../../../../assets/img/diamond.svg'
+import platinum from '../../../../assets/img/platinum.svg'
+import gold from '../../../../assets/img/gold.svg'
 
 const ComplexTable = (props) => {
   const [search,setSearch] = useState()
@@ -64,7 +67,14 @@ const ComplexTable = (props) => {
             .slice(0, limit).map((list, index) => {
               return <tr className="font-md text-md font-medium text-gray-700 dark:text-white overflow-scroll" key={index} >
                 <td className="py-2" >{index + 1}</td>
-                <td className="py-2" >{(index+1) == 1? <div className="text-brand-700 dark:text-white flex items-center flex-row gap-1"><MdBeenhere className="w-5 h-5"/><p>{list.nama}</p></div>:list.nama}</td>
+                <td className="py-2" >{(index+1) == 1? <div className="text-cyan-600 dark:text-white flex items-center flex-row gap-1">
+                  <img src={diamond} className="w-5 h-5"/><p>{list.nama}</p></div>:
+                  (index+1) == 2?<div className="text-grey-700 dark:text-white flex items-center flex-row gap-1">
+                    <img src={platinum} className="w-6 h-6"/><p>{list.nama}</p></div>:
+                    (index+1) == 3?<div className="text-grey-700 dark:text-white flex items-center flex-row gap-1">
+                      <img src={gold} className="w-7 h-7"/><p>{list.nama}</p></div>:
+                      <p>{list.nama}</p>}
+                </td>
                 <td className="py-2" >{list.total_jamaah}</td>
                 <td className="py-2 flex flex-row">
                   <IoOpenOutline className="w-6 h-6 cursor-pointer hover:scale-125 transition-all" onClick={()=>navigate('/agen/agens/profile', {state: {id: list.id}})} />
