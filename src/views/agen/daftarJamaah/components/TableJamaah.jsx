@@ -2,7 +2,7 @@ import { useState } from "react";
 import Card from "../../../../components/card";
 import { useNavigate } from "react-router";
 import { IoOpenOutline, IoSearch } from "react-icons/io5";
-import { TbTrash } from "react-icons/tb";
+import { TbPencil, TbTrash } from "react-icons/tb";
 import api from '../../../../api/axios.js'
 
 const ComplexTable = (props) => {
@@ -13,14 +13,18 @@ const ComplexTable = (props) => {
   const [modal,setModal] = useState(false)
   const [jamaahId,setID] = useState()
   const { title, data, limit, nama,side } = props;
+  const [click,setClick] = useState(false)
 
   const deleteJamaah = async()=>{
-    try {
-      await api.post('/jamaah/hapus',{id: jamaahId},{withCredentials:true}).then(()=>{
+    if (!click) {
+      try {
+        await api.post('/jamaah/hapus',{id: jamaahId},{withCredentials:true}).then(()=>{
+          setClick(true)
+          return window.location.reload()
+        })
+      } catch (err) {
         
-      })
-    } catch (err) {
-      
+      }
     }
   }
 
@@ -33,7 +37,7 @@ const ComplexTable = (props) => {
           <p>Apakah Anda yakin ingin menghapus {name} ? </p>
           <button onClick={()=>{
             deleteJamaah()
-            navigate('/agen/dashboard')
+            return window.location.reload()
             }} className="bg-red-500 px-4 py-2 border-radius rounded-[10px] text-white">
             Hapus
           </button>
@@ -167,7 +171,8 @@ const ComplexTable = (props) => {
                 <td className="py-2" >{list.dibuat_pada}</td>
                 <td className="py-2" >{list.berangkat ? list.berangkat : "Belum ditentukan"}</td>
                 <td className="py-2" >{list.dp ? "Lunas" : "Belum Lunas"}</td>
-                <td className="py-2 flex flex-row gap-2">
+                <td className="py-2">
+                  <div className="flex flex-row gap-2">
                   <IoOpenOutline className="w-6 h-6 cursor-pointer hover:scale-125 transition-all" onClick={() => {
                     navigate('profile', {
                       state: {
@@ -180,18 +185,31 @@ const ComplexTable = (props) => {
                         no_telepon: list.no_telepon,
                         paket: list.paket,
                         dibuat: list.dibuat_pada,
-                        berangkat: list.berangkat,
                         dp: list.dp,
                         di_daftarkan: nama
 
                       }
                     })
                   }} />
+                
+                  <TbPencil onClick={() => {
+                    return navigate('edit',{
+                      state: {
+                        id: list.id ,
+                        ktp: list.ktp,
+                        nama : list.nama, 
+                        alamat: list.alamat, 
+                        kelamin: list.jenis_kelamin,
+                        no_telepon: list.no_telepon
+                      }
+                    })
+                  }} className="w-6 h-6 mx-2 cursor-pointer hover:scale-125 transition-all" />
                   <TbTrash className="hover:scale-125 w-6 h-6 cursor-pointer transition-all" onClick={()=>{
                     setname(list.nama)
                     setModal(true)
                     setID(list.id)
                   }} />
+                  </div>
                 </td>
               </tr>
             })}

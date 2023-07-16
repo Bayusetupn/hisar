@@ -2,7 +2,7 @@ import { useState } from "react";
 import Card from "../../../../components/card";
 import { useNavigate } from "react-router";
 import { IoOpenOutline, IoSearch } from "react-icons/io5";
-import { TbTrash } from "react-icons/tb";
+import { TbPencil, TbTrash } from "react-icons/tb";
 import api from '../../../../api/axios.js'
 
 const ComplexTable = (props) => {
@@ -12,15 +12,19 @@ const ComplexTable = (props) => {
   const [name,setname] = useState()
   const [modal,setModal] = useState(false)
   const [jamaahId,setID] = useState()
+  const [click,setClick] = useState(false)
   const { title, data, limit, nama,side } = props;
 
   const deleteJamaah = async()=>{
-    try {
-      await api.post('/jamaah/hapus',{id: jamaahId},{withCredentials:true}).then(()=>{
+    if (!click) {
+      try {
+        await api.post('/jamaah/hapus',{id: jamaahId},{withCredentials:true}).then(()=>{
+          setClick(true)
+          return window.location.reload()
+        })
+      } catch (err) {
         
-      })
-    } catch (err) {
-      
+      }
     }
   }
 
@@ -187,6 +191,19 @@ const ComplexTable = (props) => {
                       }
                     })
                   }} />
+<TbPencil onClick={() => {
+                    return navigate('edit',{
+                      state: {
+                        id: list.id ,
+                        ktp: list.ktp,
+                        nama : list.nama, 
+                        alamat: list.alamat, 
+                        kelamin: list.jenis_kelamin,
+                        no_telepon: list.no_telepon
+                      }
+                    })
+                  }} className="w-6 h-6 mx-2 cursor-pointer hover:scale-125 transition-all" />
+
                   <TbTrash className="hover:scale-125 w-6 h-6 cursor-pointer transition-all" onClick={()=>{
                     setname(list.nama)
                     setModal(true)

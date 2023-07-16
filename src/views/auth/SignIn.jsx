@@ -27,7 +27,7 @@ export default function SignIn() {
           case 'admin':
             login({
               token: res.data.token,
-              expiresIn: 360000000,
+              expiresIn: 10,
               tokenType: "Bearer",
               authState: res.data.role
             })
@@ -36,7 +36,7 @@ export default function SignIn() {
           case 'agen':
             login({
               token: res.data.token,
-              expiresIn: 360000000,
+              expiresIn: 10,
               tokenType: "Bearer",
               authState: res.data.role
             })
@@ -45,7 +45,7 @@ export default function SignIn() {
           case 'ustad':
             login({
               token: res.data.token,
-              expiresIn: 360000000,
+              expiresIn: 10,
               tokenType: "Bearer",
               authState: res.data.role
             })

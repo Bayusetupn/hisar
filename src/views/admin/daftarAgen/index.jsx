@@ -39,7 +39,8 @@ const DaftarAgen = () => {
           title={"Cari Agen"}
           data={dataAgen}
           limit={totalAgen}
-          side={<div onClick={()=>navigate('/admin/plusagen')} className="flex flex-direction-row"><IoAdd className="h-6 w-6 mr-2"/><p>Tambah Agen</p></div>}
+          klik={()=>navigate('/admin/plusagen')}
+          side={<div className="flex flex-direction-row"><IoAdd className="h-6 w-6 mr-2"/><p>Tambah Agen</p></div>}
         />
       </div>
     </div>

@@ -15,7 +15,7 @@ const ComplexTable = (props) => {
   const { title, data, limit, side, klik} = props;
 
   const deleteA = async() =>{
-    if (role == "agen") {
+    if (role === "agen") {
       await api.post('agen/delete',iduser,{withCredentials: true}).then(()=>{
         return navigate('/admin/dashboard',{replace: true})
       }).catch(err=>{
@@ -144,7 +144,7 @@ const ComplexTable = (props) => {
                 <div className="flex flex-row items-center">
                 <IoOpenOutline className="w-6 h-6 cursor-pointer hover:scale-125 transition-all" onClick={()=>navigate('profile', {state: {id: list.id}})} />
                   <TbPencil onClick={() => {
-                    return navigate('edit',{state: {id: list.id ,nama : list.nama, alamat: list.alamat, no_telepon: list.no_telepon, username: list.username}})
+                    return navigate('edit',{state: {id: list.id ,ktp: list.no_ktp,nama : list.nama, alamat: list.alamat, no_telepon: list.no_telepon, username: list.username}})
                   }} className="w-6 h-6 mx-2 cursor-pointer hover:scale-125 transition-all" />
                   <TbTrash className="hover:scale-125 w-6 h-6 cursor-pointer transition-all" onClick={()=>{
                     setname(list.nama)
