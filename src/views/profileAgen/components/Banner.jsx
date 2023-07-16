@@ -13,23 +13,22 @@ import { url } from "../../../api/url.js";
 const Banner = (props) => {
   const navigate = useNavigate()
 
-  const {ktp,gabung,foto,alamat,no,nama,username} = props
-  const [fotos,setFotos] = useState()
-  const [img,setImg] = useState(foto)
+  const { historyData, ktp, gabung, foto, alamat, no, nama, username } = props
+  const [history, setHistory] = useState(false)
 
   return (
     <Card extra={"items-center w-full h-fit p-[16px] bg-cover"}>
       {/* Background and profile */}
-        <div className="relative flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
-          <img className="h-full w-full rounded-full"  src={foto? `${url}/${foto}` : user} alt="avatar" />
-        </div>
+      <div className="relative flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
+        <img className="h-full w-full rounded-full" src={foto ? `${url}/${foto}` : user} alt="avatar" />
+      </div>
 
       {/* Name and position */}
       <div className="mt-3 mb-3 flex flex-col items-center">
         <div className="flex flex-row" >
-        <h4 className="text-xl font-bold text-navy-700 dark:text-white">
-          {nama}
-        </h4>
+          <h4 className="text-xl font-bold text-navy-700 dark:text-white">
+            {nama}
+          </h4>
         </div>
         <p className="text-base font-normal text-gray-700 dark:text-white">
           {"Agen"}
@@ -42,8 +41,8 @@ const Banner = (props) => {
 
       {/* Post followers */}
       <div className="mt-6 mb-3 w-full flex flex-col items-start gap-2 md:!gap-2">
-        
-      <div className="flex flex-row items-center justify-center">
+
+        <div className="flex flex-row items-center justify-center">
           <p className="text-md font-bold text-navy-700 dark:text-white mr-2">No Ktp :</p>
           <p className="text-sm font-normal text-gray-700  dark:text-white">{ktp}</p>
         </div>
@@ -63,6 +62,22 @@ const Banner = (props) => {
           <p className="text-md font-bold text-navy-700 dark:text-white mr-2">Bergabung pada tanggal :</p>
           <p className="text-sm font-normal text-gray-700  dark:text-white">{gabung}</p>
         </div>
+      </div>
+      <div onClick={() => setHistory(!history)} className="linear mb-2 flex flex-row w-full items-center justify-center cursor-pointer rounded-xl px-4 py-2 text-white bg-brand-500">
+        <p className="text-md text-white">Riwayat Login</p>
+      </div>
+      <div className="mt-2 flex w-full items-start flex-col text-navy-700 dark:text-white gap-3 text-md font-bold" >
+        {historyData.sort((a, b) => {
+          return b.id - a.id;
+        }).map((data, index) => {
+          return <div className="flex flex-row items-center gap-3" key={index}>
+            <div className="w-2 h-2 bg-navy-700 dark:bg-white rounded-full"></div>
+            <div className="text-sm font-bold text-navy-700 dark:text-white ">
+              <p>{data.login.split("/")[0]}</p>
+              <p className="text-sm font-normal">{data.login.split("/")[1]}</p>
+            </div>
+          </div>
+        })}
       </div>
     </Card>
   );

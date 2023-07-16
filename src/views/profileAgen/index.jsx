@@ -12,6 +12,7 @@ const ProfileOverview = () => {
   const location = useLocation()
   const [dataAgen, setdataAgen] = useState({id: "",bergabung: "",foto: "",no_ktp: "",nama: "", alamat: "", no_telepon: "", username: ""})
   const [dataJamaah,setdataJamaah] = useState([''])
+  const [historyData,setHistoryData] = useState([])
   
   const agen = async() =>{
     try {
@@ -36,9 +37,20 @@ const ProfileOverview = () => {
     }
   }
 
+  const loginHistory = async()=>{
+    try {
+      await api.post('/riwayat/login',{id: location.state.id},{withCredentials: true}).then(res=>{
+        setHistoryData(res.data.data)
+      })
+    } catch (err) {
+      
+    }
+  }
+
   useEffect(()=>{
     agen()
     jamaah()
+    loginHistory()
   },[])
 
   return (
@@ -51,7 +63,7 @@ const ProfileOverview = () => {
       </div>
       <div className="w-ful mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-12">
         <div className="col-span-3 lg:!mb-0">
-          <Banner  ktp={dataAgen.no_ktp} gabung={dataAgen.bergabung} foto={dataAgen.foto} nama={dataAgen.nama} alamat={dataAgen.alamat} no={dataAgen.no_telepon} username={dataAgen.username}/>
+          <Banner historyData={historyData} ktp={dataAgen.no_ktp} gabung={dataAgen.bergabung} foto={dataAgen.foto} nama={dataAgen.nama} alamat={dataAgen.alamat} no={dataAgen.no_telepon} username={dataAgen.username}/>
         </div>
         <div className="col-span-9">
         <div className="flex flex-col gap-5">
@@ -62,7 +74,7 @@ const ProfileOverview = () => {
           limit={dataJamaah.length}
           />
         </div>
-        </div>
+      </div>
       </div>
       </div>
   );
