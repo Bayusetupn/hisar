@@ -20,7 +20,8 @@ const ComplexTable = (props) => {
       try {
         await api.post('/jamaah/hapus',{id: jamaahId},{withCredentials:true}).then(()=>{
           setClick(true)
-          return window.location.reload()
+          setModal(false)
+          navigate('/ustad/dashboard',{replace:true})
         })
       } catch (err) {
         
@@ -37,7 +38,7 @@ const ComplexTable = (props) => {
           <p>Apakah Anda yakin ingin menghapus {name} ? </p>
           <button onClick={()=>{
             deleteJamaah()
-            return window.location.reload()
+            navigate('/ustad/dashboard',{replace:true})
             }} className="bg-red-500 px-4 py-2 border-radius rounded-[10px] text-white">
             Hapus
           </button>

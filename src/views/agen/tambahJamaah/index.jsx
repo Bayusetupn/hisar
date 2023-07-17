@@ -1,18 +1,19 @@
 
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { redirect, useNavigate } from "react-router";
 import api from '../../../api/axios.js';
 import axios from "axios";
 
 const ProfileOverview = () => {
-    const [prov,setProvinsi] = useState([])
+    const [prov, setProvinsi] = useState([])
     const [kota, setKota] = useState([])
-    const [alamat,setAlamat] = useState({provinsi: "",kabupaten: "",kecamatan: "",kelurahan:"",rt: "",pendukung: ""})
+    const [alamat, setAlamat] = useState({ provinsi: "", kabupaten: "", kecamatan: "", kelurahan: "", rt: "", pendukung: "" })
     const navigate = useNavigate()
-    const [errMsg,setErrMsg] = useState('')
-    const [confir,setConfir] = useState()
-    const [formData,setFormData] = useState({
+    const [errMsg, setErrMsg] = useState('')
+    const [confir, setConfir] = useState()
+    const [modal, setModal] = useState(false)
+    const [formData, setFormData] = useState({
         nama: '',
         ktp: '',
         jenis_kelamin: 'Laki-Laki',
@@ -21,42 +22,46 @@ const ProfileOverview = () => {
         paket: 'Premium',
     })
 
-    const provinsi = async() => {
-        await axios.get("https://dev.farizdotid.com/api/daerahindonesia/provinsi").then(res=>{
-          setProvinsi(res.data.provinsi)  
+    const provinsi = async () => {
+        await axios.get("https://dev.farizdotid.com/api/daerahindonesia/provinsi").then(res => {
+            setProvinsi(res.data.provinsi)
         })
     }
 
-    const kotas = async(id)=>{
-        await axios.get(`https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${id}`).then(res=>{
+    const kotas = async (id) => {
+        await axios.get(`https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${id}`).then(res => {
             setKota(res.data.kota_kabupaten)
         })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         provinsi()
-    },[])
+    }, [])
 
-    const handleSubmit = async(e) =>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (formData.alamat) {
-            try {
-                await api.post('/jamaah/tambah',formData,{withCredentials: true})
+
+        try {
+            setModal(true)
+            await api.post('/jamaah/tambah', {
+                nama: formData.nama,
+                ktp: formData.ktp,
+                jenis_kelamin: formData.jenis_kelamin,
+                no_telepon: formData.no_telepon,
+                alamat: `${alamat.pendukung}${alamat.rt}${alamat.kelurahan}${alamat.kecamatan}${alamat.kabupaten}${alamat.provinsi}`,
+                paket: formData.paket
+            },
+                { withCredentials: true })
                 
-            } catch (err) {
-                setErrMsg(err.response.data.message)
-            }
-        }else{
-            setConfir("Konfirmasi Penambahan Jamaah ( Klik tambah 1x lagi )")
-            setFormData({...formData,alamat: `${alamat.pendukung}${alamat.rt}${alamat.kelurahan}${alamat.kecamatan}${alamat.kabupaten}${alamat.provinsi}`})
+        } catch (err) {
+            setErrMsg(err.response.data.message)
         }
-        // navigate('/agen/jamaah',{replace:true})
     }
 
     return (
         <div className="flex w-full flex-col h-screen overflow-auto gap-5 p-5 dark:!bg-navy-900">
             <div className="w-fit mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-1">
-                <div className="flex flex-direction-row items-center cursor-pointer dark:text-white" onClick={() => navigate(-1,{replace:true})}>
+                <div className="flex flex-direction-row items-center cursor-pointer dark:text-white" onClick={() => navigate(-1, { replace: true })}>
                     <IoMdArrowRoundBack className="h-7 w-7 mr-2" />
                     <p className="text-md font-bold">Back</p>
                 </div>
@@ -64,21 +69,33 @@ const ProfileOverview = () => {
             <div className="w-ful mt-3 flex h-fit sm:w-full flex-col gap-2 lg:grid lg:grid-cols-12">
                 <div className="col-span-2">
                 </div>
+                {modal ?
+                    <div className="transition-all fixed inset-0 bg-navy-800 bg-opacity-50 w-screen h-screen flex justify-center items-center" >
+                        <div className="rounded-[20px] flex-col w-[300px] gap-3 flex items-center justify-center h-[170px] bg-white ">
+                            <div>
+                                <p className="text-md text-navy-700 font-medium">Jamaah Berhasil Dibuat</p>
+                            </div>
+                            <div onClick={() => navigate(-1, { replace: true })} className="linear flex flex-row items-center justify-center cursor-pointer rounded-xl px-6 py-2 text-white bg-brand-500" >
+                                <p>Kembali</p>
+                            </div>
+                        </div>
+                    </div>
+                    : null}
                 <div className=" p-5 col-span-8 rounded-[20px] bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:shadow-none ">
                     <h1 className="text-xl font-bold text-navy-700 dark:text-white">Tambah Jamaah</h1>
                     <p className="text-md font-sm mb-4">Masukkan Informasi Jamaah yang akan di tambah !</p>
                     <div className="flex flex-row justify-between flex-wrap gap-5">
-                        <form onChange={()=>setErrMsg('')} onSubmit={handleSubmit}
-                             className="flex-grow">
+                        <form onChange={() => setErrMsg('')} onSubmit={handleSubmit}
+                            className="flex-grow">
                             <label className="text-sm" >Nama Jamaah</label>
-                            <input onChange={e=>setFormData({...formData,nama: e.target.value  })} required placeholder="Nama Jamaah" className="dark:focus:border-white transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
+                            <input onChange={e => setFormData({ ...formData, nama: e.target.value })} required placeholder="Nama Jamaah" className="dark:focus:border-white transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
                             </input>
                             <label className="text-sm" >No Ktp</label>
-                            <input onChange={e=>setFormData({...formData,ktp: e.target.value})} required placeholder="3242" type="number" className="dark:focus:border-white transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
+                            <input onChange={e => setFormData({ ...formData, ktp: e.target.value })} required placeholder="3242" type="number" className="dark:focus:border-white transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
                             </input>
                             <div className="flex flex-col gap-2 mb-2">
                                 <label className="text-sm">Jenis Kelamin</label>
-                                <select onChange={e=>setFormData({...formData,jenis_kelamin: e.target.value})} required className="dark:focus:border-white dark:bg-navy-800 transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
+                                <select onChange={e => setFormData({ ...formData, jenis_kelamin: e.target.value })} required className="dark:focus:border-white dark:bg-navy-800 transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
                                     <option value={"Laki-Laki"}>
                                         Laki-Laki
                                     </option>
@@ -88,67 +105,67 @@ const ProfileOverview = () => {
                                 </select>
                             </div>
                             <label className="text-sm" >No Telepon</label>
-                            <input onChange={e=>setFormData({...formData,no_telepon: e.target.value})} required placeholder="08112233445566" type="number" className="dark:focus:border-white transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
+                            <input onChange={e => setFormData({ ...formData, no_telepon: e.target.value })} required placeholder="08112233445566" type="number" className="dark:focus:border-white transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
                             </input>
                             <label className="text-md font-bold" >Alamat Domisili</label>
                             <div className="pl-5 my-2 ">
-                            <label className="text-sm" >Preview Alamat</label>
-                            <p className="transition-all sm:w-full my-2 h-fit w-fit  p-3 text-sm " >
-                            {`${alamat.pendukung}${alamat.rt}${alamat.kelurahan}${alamat.kecamatan}${alamat.kabupaten}${alamat.provinsi}`}
-                            </p>
+                                <label className="text-sm" >Preview Alamat</label>
+                                <p className="transition-all sm:w-full my-2 h-fit w-fit  p-3 text-sm " >
+                                    {`${alamat.pendukung}${alamat.rt}${alamat.kelurahan}${alamat.kecamatan}${alamat.kabupaten}${alamat.provinsi}`}
+                                </p>
                                 <label className="text-sm" >Provinsi</label>
-                                <select onChange={(e)=>{
+                                <select onChange={(e) => {
                                     kotas(e.target.value.split("-")[0])
                                     setErrMsg('')
                                     setConfir('')
-                                    setAlamat({...alamat,provinsi: e.target.value.split('-')[1]+"."})
+                                    setAlamat({ ...alamat, provinsi: e.target.value.split('-')[1] + "." })
                                 }} className="dark:focus:border-white dark:bg-navy-800 transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
                                     {prov.map((list, index) => {
                                         return <option key={index} value={`${list.id}-${list.nama}`}>{list.nama}</option>
                                     })}
                                 </select>
                                 <label className="text-sm" >Kabupaten/Kota</label>
-                                <select required onChange={(e)=>{
-                                     setErrMsg('')
-                                     setConfir('')
-                                    setAlamat({...alamat,kabupaten: e.target.value+", "})
+                                <select required onChange={(e) => {
+                                    setErrMsg('')
+                                    setConfir('')
+                                    setAlamat({ ...alamat, kabupaten: e.target.value + ", " })
                                 }} className="dark:focus:border-white dark:bg-navy-800 transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
-                                    {kota? 
-                                    kota.map((list,index)=>{
-                                        return <option key={index} value={`${list.nama}`} >{list.nama}</option>
-                                    })    
-                                :null}
+                                    {kota ?
+                                        kota.map((list, index) => {
+                                            return <option key={index} value={`${list.nama}`} >{list.nama}</option>
+                                        })
+                                        : null}
                                 </select>
                                 <label className="text-sm" >Kecamatan</label>
-                                <input required onChange={(e)=>{
-                                     setErrMsg('')
-                                     setConfir('')
-                                    setAlamat({...alamat,kecamatan: "Kecamatan " + e.target.value +", "})
+                                <input required onChange={(e) => {
+                                    setErrMsg('')
+                                    setConfir('')
+                                    setAlamat({ ...alamat, kecamatan: "Kecamatan " + e.target.value + ", " })
                                 }} placeholder="Kecamatan" type="text" className="dark:focus:border-white transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" />
                                 <label className="text-sm" >Kelurahan</label>
-                                <input onChange={(e)=>{
-                                     setErrMsg('')
-                                     setConfir('')
-                                    setAlamat({...alamat,kelurahan: e.target.value +", "})
+                                <input onChange={(e) => {
+                                    setErrMsg('')
+                                    setConfir('')
+                                    setAlamat({ ...alamat, kelurahan: e.target.value + ", " })
                                 }} required placeholder="Kelurahan/Desa" type="text" className="dark:focus:border-white transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" />
                                 <label className="text-sm" >Rt/Rw</label>
-                                <input onChange={(e)=>{
-                                     setErrMsg('')
-                                     setConfir('')
-                                    setAlamat({...alamat,rt: "Rt " + e.target.value.split("/")[0] + " Rw " + e.target.value.split("/")[1] + ", "})
+                                <input onChange={(e) => {
+                                    setErrMsg('')
+                                    setConfir('')
+                                    setAlamat({ ...alamat, rt: "Rt " + e.target.value.split("/")[0] + " Rw " + e.target.value.split("/")[1] + ", " })
                                 }} required placeholder="00/00" type="text" className="dark:focus:border-white transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
                                 </input>
                                 <label className="text-sm" >Alamat Pendukung</label>
-                                <input onChange={(e)=>{
-                                     setErrMsg('')
-                                     setConfir('')
-                                    setAlamat({...alamat,pendukung: e.target.value +", "})
+                                <input onChange={(e) => {
+                                    setErrMsg('')
+                                    setConfir('')
+                                    setAlamat({ ...alamat, pendukung: e.target.value + ", " })
                                 }} required placeholder="Jl.Nama Jalam No.00" type="text" className="dark:focus:border-white transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
                                 </input>
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label className="text-sm">Pilihan Paket</label>
-                                <select onChange={e=>setFormData({...formData,paket: e.target.value})} required className="dark:focus:border-white dark:bg-navy-800 transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
+                                <select onChange={e => setFormData({ ...formData, paket: e.target.value })} required className="dark:focus:border-white dark:bg-navy-800 transition-all sm:w-full my-2 flex h-12 w-full items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" >
                                     <option value={"Premium"}>
                                         Umroh Premium
                                     </option>

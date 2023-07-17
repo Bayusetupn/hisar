@@ -9,6 +9,8 @@ const ProfileOverview = () => {
     const navigate = useNavigate()
     const [formData, setFormData] = useState({ id: location.state.id,jenis_kelamin: location.state.kelamin, ktp: location.state.ktp, nama: location.state.nama, alamat: location.state.alamat, no_telepon: location.state.no_telepon })
     const [errMsg, setErrMsg] = useState()
+    
+    const [modal,setModal] = useState(false)
 
     const edit = async () => {
             if (!formData.ktp || !formData.jenis_kelamin ||!formData.nama || !formData.alamat || !formData.no_telepon) {
@@ -21,6 +23,7 @@ const ProfileOverview = () => {
                 }
               }
             try {
+                setModal(true)
                 await api.post('/jamaah/edit', formData, { withCredentials: true }).then(res => {
                         return navigate(-1)
                     })
@@ -39,6 +42,18 @@ const ProfileOverview = () => {
                         <p className="text-md font-bold">Back</p>
                     </div>
                 </div>
+                {modal ?
+                    <div className="transition-all fixed inset-0 bg-navy-800 bg-opacity-50 w-screen h-screen flex justify-center items-center" >
+                        <div className="rounded-[20px] flex-col w-[300px] gap-3 flex items-center justify-center h-[170px] bg-white ">
+                            <div>
+                                <p className="text-md text-navy-700 font-medium">Jamaah Berhasil Diedit</p>
+                            </div>
+                            <div onClick={() => navigate(-1, { replace: true })} className="linear flex flex-row items-center justify-center cursor-pointer rounded-xl px-6 py-2 text-white bg-brand-500" >
+                                <p>Kembali</p>
+                            </div>
+                        </div>
+                    </div>
+                    : null}
                 <div className="w-ful mt-3 flex h-fit sm:w-full flex-col gap-2 lg:grid lg:grid-cols-12">
                     <div className="col-span-2">
                     </div>
