@@ -19,6 +19,13 @@ import RankAdmin from 'views/admin/rank'
 import RankAgen from 'views/agen/rank'
 import RankUstad from 'views/ustad/rank'
 
+//manager
+import ManagerDash from 'views/manager/default'
+import AgenManager from 'views/manager/daftarAgen'
+import UstadManager from 'views/manager/daftarUstad'
+import JamaahManager from 'views/manager/daftarJamaah'
+import RankManager from 'views/manager/rank'
+
 // Auth Imports
 import SignIn from "views/auth/SignIn";
 
@@ -160,7 +167,43 @@ const routes = [
     path: "ranking",
     icon: <MdLeaderboard className="h-6 w-6"/>,
     component: <RankAdmin/>
-  }
+  }]
+
+const routes2 = [
+    {
+      name: "Dashboard",
+      layout: "/manager",
+      path: "dashboard",
+      icon: <MdHome className="h-6 w-6" />,
+      component: <ManagerDash />,
+    },
+    {
+      name: "Daftar Agen",
+      layout: "/manager",
+      path: "agen",
+      icon: <IoPeople className="h-6 w-6" />,
+      component: <AgenManager/>
+    },
+    {
+      name: "Daftar Ustad",
+      layout: "/manager",
+      path: "ustad",
+      icon: <IoPeople className="h-6 w-6" />,
+      component: <UstadManager/>
+    },
+    {
+      name: "Daftar Jamaah",
+      layout: "/manager",
+      path: "jamaah",
+      icon: <IoMdPeople className="h-6 w-6"/>,
+      component: <JamaahManager/>
+    },{
+      name: "Ranking",
+      layout: "/manager",
+      path: "ranking",
+      icon: <MdLeaderboard className="h-6 w-6"/>,
+      component: <RankManager/>
+    }
 
   /*{
     name: "NFT Marketplace",
@@ -199,5 +242,6 @@ export {
   profile,
   tambah,
   agen,
-  ustad
+  ustad,
+  routes2
 }

@@ -9,6 +9,8 @@ export default function Auth() {
   switch (auth()) {
     case 'admin':
       return <Navigate to={'/admin/dashboard'} replace />
+      case 'manager':
+      return <Navigate to={'/manager/dashboard'} replace />
     case 'agen':
       return <Navigate to={'/agen/dashboard'} replace />
     case 'ustad':

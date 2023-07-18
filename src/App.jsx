@@ -37,6 +37,14 @@ import { reactLocalStorage } from "reactjs-localstorage";
 // import Cookies from "js-cookie";
 import EditJamaahAgen from 'views/agen/editJamaah'
 import EditJamaahUstad from 'views/ustad/editJamaah'
+//manager
+import ManagerLayout from 'layouts/manager'
+import ManagerAgenProfile from 'views/profileAgen'
+import ManagerAgenEdit from 'views/manager/editAgen'
+import ManagerTambahAgen from 'views/manager/tambahAgen'
+import ManagerTambahUstad from 'views/manager/tambahUstad'
+import ManagerUstadEdit from 'views/manager/editUstad'
+import ManagerUstadProfile from 'views/profileUstad'
 
 const App = () => {
 
@@ -71,6 +79,13 @@ const App = () => {
       <Route path="profiles/*" element={<RequireAuth loginPath="/auth/login"><Error404/></RequireAuth>}/>
       <Route path="profiles" element={<RequireAuth loginPath="/auth/login"><Profile/></RequireAuth>}/>
       <Route path="profiles/edit" element={<RequireAuth loginPath="/auth/login"><Editprofile/></RequireAuth>}/>
+      <Route path="manager/*" element={<RequireAuth loginPath="/auth/login"><ManagerLayout/></RequireAuth>} />
+      <Route path="manager/agen/profile" element={<RequireAuth loginPath="/auth/login"><ManagerAgenProfile/></RequireAuth>} />
+      <Route path="manager/agen/edit" element={<RequireAuth loginPath="/auth/login"><ManagerAgenEdit/></RequireAuth>} />
+      <Route path="manager/plusagen" element={<RequireAuth loginPath="/auth/login"><ManagerTambahAgen/></RequireAuth>} />
+      <Route path="manager/plusustad" element={<RequireAuth loginPath="/auth/login"><ManagerTambahUstad/></RequireAuth>} />
+      <Route path="manager/ustad/edit" element={<RequireAuth loginPath="/auth/login" ><ManagerUstadEdit/></RequireAuth>}/>
+      <Route path="manager/ustad/profile" element={<RequireAuth loginPath="/auth/login"><ManagerUstadProfile/></RequireAuth>} />
       <Route path="admin/*" element={<RequireAuth loginPath="/auth/login"><AdminLayout/></RequireAuth>} />
       <Route path="admin/plusagen" element={<RequireAuth loginPath="/auth/login" ><TambahAgen/></RequireAuth>}/>
       <Route path="admin/plusustad" element={<RequireAuth loginPath="/auth/login" ><TambahUstad/></RequireAuth>}/>

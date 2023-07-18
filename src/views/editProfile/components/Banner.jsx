@@ -4,7 +4,7 @@ import user from '../../../assets/img/user.jpg'
 
 const Banner = (props) => {
 
-  const {totalAgen,totalUstad,nama,username} = props;
+  const {role,totalAgen,totalUstad,nama,username} = props;
 
   return (
     <Card extra={"items-center w-full h-fit p-[16px] bg-cover"}>
@@ -21,7 +21,7 @@ const Banner = (props) => {
         </h4>
         </div>
         <p className="text-base font-normal text-gray-700 dark:text-white">
-          {"Admin"}
+          {role}
         </p>
       </div>
 

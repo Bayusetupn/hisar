@@ -49,7 +49,7 @@ const ProfileOverview = () => {
       }
     }
     try {
-      await api.put('/admin/edit', formData, { withCredentials: true }).then(res => {
+      await api.put(`/${location.state.role}/edit`, formData, { withCredentials: true }).then(res => {
         return logout()
       })
     } catch (err) {
@@ -109,11 +109,11 @@ const ProfileOverview = () => {
       </div>
       <div className="w-ful mt-3 flex h-fit  sm:w-full flex-col gap-5 lg:grid lg:grid-cols-12">
         <div className="col-span-3 lg:!mb-0">
-          <Banner totalAgen={totalAgen} totalUstad={totalUstad} nama={location.state.name} username={location.state.user} />
+          <Banner role={location.state.role} totalAgen={totalAgen} totalUstad={totalUstad} nama={location.state.name} username={location.state.user} />
         </div>
         <div className="p-5 col-span-5 rounded-[20px] bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:shadow-none ">
-          <h1 className="text-xl font-bold text-navy-700 dark:text-white">Edit Admin</h1>
-          <p className="text-md font-sm mb-4">Masukkan Informasi Admin yang akan di edit!</p>
+          <h1 className="text-xl font-bold text-navy-700 dark:text-white">Edit {location.state.role}</h1>
+          <p className="text-md font-sm mb-4">Masukkan Informasi {location.state.role} yang akan di edit!</p>
           <div>
           <p className="text-red-500 mb-2">{errMsg}</p>
           </div>

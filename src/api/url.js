@@ -1,1 +1,1 @@
-export const url = "https://api.hisar.my.id"
+export const url = "http://localhost:4000"

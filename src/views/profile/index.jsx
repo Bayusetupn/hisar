@@ -1,11 +1,4 @@
-import { IoArrowBack, IoBackspace } from "react-icons/io5";
 import Banner from "./components/Banner";
-import General from "./components/General";
-import Notification from "./components/Notification";
-import Project from "./components/Project";
-import Storage from "./components/Storage";
-import Upload from "./components/Upload";
-import { MdArrowBack, MdArrowBackIosNew } from "react-icons/md";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import ComplexTable from "../admin/default/components/ComplexTable";
 import { useState,useEffect } from "react";
@@ -63,14 +56,14 @@ const ProfileOverview = () => {
   return (
     <div className="flex w-full flex-col h-screen gap-5 p-5 dark:!bg-navy-900">
       <div className="w-fit mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-1">
-          <div className="flex flex-direction-row items-center cursor-pointer dark:text-white" onClick={()=>navigate('/admin/dashboard')}>
+          <div className="flex flex-direction-row items-center cursor-pointer dark:text-white" onClick={()=>navigate(-1)}>
             <IoMdArrowRoundBack className="h-7 w-7 mr-2"/>
             <p className="text-md font-bold">Back to Dashboard</p>
           </div>
       </div>
       <div className="w-ful mt-3 flex h-fit flex-col gap-5 lg:grid lg:grid-cols-12">
         <div className="col-span-3 lg:!mb-0">
-          <Banner totalAgen={totalAgen} totalUstad={totalUstad} nama={infoAdmin.nama} username={infoAdmin.username}/>
+          <Banner role={infoAdmin.role} totalAgen={totalAgen} totalUstad={totalUstad} nama={infoAdmin.nama} username={infoAdmin.username}/>
         </div>
         <div className="col-span-9">
         <div className="flex flex-col gap-5">
@@ -79,7 +72,7 @@ const ProfileOverview = () => {
           data={dataAgen}
           limit={5}
           side={"Lihat Selengkapnya"}
-          navigate={'/admin/agen'}
+          navigate={infoAdmin.role == "admin"? '/admin/agen':'/manager/agen'}
           replaces={true}
         />
         <ComplexTable
@@ -87,7 +80,7 @@ const ProfileOverview = () => {
           data={dataUstad}
           limit={5}
           side={"Lihat Selengkapnya"}
-          navigate={'/admin/ustad'}
+          navigate={infoAdmin.role == "admin"? '/admin/ustad':'/manager/ustad'}
           replaces={true}
         />
         </div>

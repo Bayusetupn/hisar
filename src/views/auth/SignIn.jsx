@@ -33,6 +33,15 @@ export default function SignIn() {
             })
             redirect('/admin/dashboard')
             break;
+            case 'manager':
+            login({
+              token: res.data.token,
+              expiresIn: 25,
+              tokenType: "Bearer",
+              authState: res.data.role
+            })
+            redirect('/manager/dashboard')
+            break;
           case 'agen':
             login({
               token: res.data.token,

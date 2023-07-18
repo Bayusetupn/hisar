@@ -1,0 +1,125 @@
+import { IoPeople,  } from "react-icons/io5";
+import { MdVerifiedUser } from "react-icons/md";
+import JamaahTable from './components/JamaahTable'
+import Widget from "components/widget/Widget";
+import ComplexTable from "views/manager/default/components/ComplexTable";
+import DailyTraffic from "views/manager/default/components/DailyTraffic";
+import DailyTrafficUstad from "views/manager/default/components/DailyTrafficUstad";
+import api from "../../../api/axios.js";
+import { useEffect, useState } from "react";
+
+const Dashboard = () => {
+
+  const [totalAgen,setTotalAgen] = useState(0)
+  const [totalUstad,setTotalUstad] = useState(0)
+  const [totalJamaah,setTotalJamaah] = useState(0)
+  const [dataAgen,setDataAgen] = useState([''])
+  const [dataJamaah,setdataJamaah] = useState([''])
+  const [dataUstad,setDataUstad] = useState([''])
+
+  const totalA = async()=>{
+    try {
+      await api.get('/agen',{ withCredentials: true}).then(res=>{
+        setDataAgen(res.data.userData)
+        setTotalAgen(res.data.userData.length)
+      })
+    } catch (err) {
+    }
+  }
+  const totalU = async()=>{
+    try {
+      await api.get('/ustad',{ withCredentials: true}).then(res=>{
+        setDataUstad(res.data.userData)
+        setTotalUstad(res.data.userData.length)
+      })
+    } catch (err) {
+      console.log("Err")
+    }
+  }
+
+  const jamaah = async() =>{
+    try {
+      await api.get('/jamaah/all',{withCredentials: true}).then(res=>{
+        setTotalJamaah(res.data.dataJamaah.length)
+        setdataJamaah(res.data.dataJamaah)
+      })
+    } catch (err) {
+      console.log(err)
+      setTotalJamaah(0)
+    }
+  }
+
+  useEffect(()=>{
+    
+    totalA()
+    totalU()
+    jamaah()
+  },[])
+    
+  
+  
+  return (
+    <div>
+      <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
+        <Widget
+          icon={<IoPeople className="h-7 w-7" />}
+          title={"Total Agen"}
+          subtitle={totalAgen}
+        />
+        <Widget
+          icon={<IoPeople className="h-6 w-6" />}
+          title={"Total Ustad"}
+          subtitle={totalUstad}
+        />
+        <Widget
+          icon={<MdVerifiedUser className="h-7 w-7" />}
+          title={"Total Jamaah"}
+          subtitle={totalJamaah}
+        />
+      </div>
+
+      {/* Tables & Charts */}
+      <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-2">
+        <DailyTraffic 
+          title="Agen"
+        />
+        <DailyTrafficUstad
+          title="Ustad"
+        />
+      </div>
+      <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-1">
+
+        {/* Complex Table , Task & Calendar */}
+
+        <ComplexTable
+          title={"Daftar Agen"}
+          data={dataAgen}
+          limit={5}
+          side={"Lihat Selengkapnya"}
+          navigates={'/manager/agen'}
+          replaces={false}
+        />
+
+        <ComplexTable
+          title={"Daftar Ustad"}
+          data={dataUstad}
+          limit={5}
+          side={"Lihat Selengkapnya"}
+          navigates={'/manager/ustad'}
+          replaces={false}
+        />
+
+  <JamaahTable
+          title={"Daftar Jamaah"}
+          data={dataJamaah}
+          limit={5}
+          side={"Lihat Selengkapnya"}
+          navigates={'/manager/jamaah'}
+          replaces={false}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;

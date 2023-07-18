@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 const Banner = (props) => {
   const navigate = useNavigate()
 
-  const {totalAgen,totalUstad,nama,username} = props;
+  const {role,totalAgen,totalUstad,nama,username} = props;
 
   return (
     <Card extra={"items-center w-full h-fit p-[16px] bg-cover"}>
@@ -24,7 +24,7 @@ const Banner = (props) => {
         </h4>
         </div>
         <p className="text-base font-normal text-gray-700 dark:text-white">
-          {"Admin"}
+          {`${role}`}
         </p>
       </div>
 
@@ -47,7 +47,7 @@ const Banner = (props) => {
           <p className="text-md font-bold text-navy-700 dark:text-white mr-2">Total Ustad</p>
           <p className="text-sm font-normal text-gray-700  dark:text-white">{totalUstad}</p>
         </div>
-        <div onClick={()=>navigate('/profiles/edit',{state:{name: nama,user: username}})} className="linear flex flex-row w-full items-center justify-center cursor-pointer rounded-xl px-4 py-2 text-white bg-brand-500">
+        <div onClick={()=>navigate('/profiles/edit',{state:{role: role,name: nama,user: username}})} className="linear flex flex-row w-full items-center justify-center cursor-pointer rounded-xl px-4 py-2 text-white bg-brand-500">
         <TbPencil className="w-6 h-6 mr-1 text-md font bold"/>
         <p>Edit</p>
         </div>
