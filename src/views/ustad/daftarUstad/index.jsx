@@ -1,11 +1,9 @@
 import AgenTable from "./components/Table";
 import api from "../../../api/axios.js";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 
 const DaftarAgen = () => {
 
-  const navigate = useNavigate()
   const [dataAgen,setDataAgen] = useState([''])
   const [totalAgen,setTotalAgen] = useState()
 

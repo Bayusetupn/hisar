@@ -45,6 +45,7 @@ import ManagerTambahAgen from 'views/manager/tambahAgen'
 import ManagerTambahUstad from 'views/manager/tambahUstad'
 import ManagerUstadEdit from 'views/manager/editUstad'
 import ManagerUstadProfile from 'views/profileUstad'
+import ManagerJamaahProfie from 'views/profileJamaahManager'
 
 const App = () => {
 
@@ -86,6 +87,7 @@ const App = () => {
       <Route path="manager/plusustad" element={<RequireAuth loginPath="/auth/login"><ManagerTambahUstad/></RequireAuth>} />
       <Route path="manager/ustad/edit" element={<RequireAuth loginPath="/auth/login" ><ManagerUstadEdit/></RequireAuth>}/>
       <Route path="manager/ustad/profile" element={<RequireAuth loginPath="/auth/login"><ManagerUstadProfile/></RequireAuth>} />
+      <Route path="manager/jamaah/profile" element={<RequireAuth loginPath="/auth/login"><ManagerJamaahProfie/></RequireAuth>} />
       <Route path="admin/*" element={<RequireAuth loginPath="/auth/login"><AdminLayout/></RequireAuth>} />
       <Route path="admin/plusagen" element={<RequireAuth loginPath="/auth/login" ><TambahAgen/></RequireAuth>}/>
       <Route path="admin/plusustad" element={<RequireAuth loginPath="/auth/login" ><TambahUstad/></RequireAuth>}/>

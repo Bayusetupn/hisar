@@ -8,13 +8,106 @@ import user from '../../../assets/img/user.jpg'
 import api from "../../../api/axios.js";
 
 const Banner = (props) => {
+  const navigate = useNavigate()
+  const [konfir, setkonfir] = useState(false)
+  const [jadwal, setJadwal] = useState('')
+  const [atur, setAtur] = useState(false)
+  const [riwayat,setRiwayat] = useState([])
 
-  const { ktp, nama, jenis, telp, alamat, gabung, dp, agen, paket, berangkat } = props;
+  const { id, ktp, nama, jenis, telp, alamat, gabung, dp, agen, paket, berangkat } = props;
 
+  const dpHandle = () => {
+    if (!dp) {
+      return <div onClick={() => setkonfir(true)} className="linear flex flex-row w-full items-center justify-center cursor-pointer rounded-xl px-4 py-2 text-white bg-brand-500">
+        <TbCheck className="w-6 h-6 mr-1 text-md font bold" />
+        <p>Tandai Sudah Dp</p>
+      </div>
+    }
+  }
+
+  useEffect(()=>{
+    history()
+  },[])
+
+  const history = async()=>{
+    try {
+      await api.post('/riwayat',{id: id},{withCredentials: true}).then(res=>{
+        setRiwayat(res.data.data)
+      })
+    } catch (err) {
+    }
+  }
+
+  const ubahDp = async () => {
+    try {
+      await api.put('/jamaah/dp', { id: id }, { withCredentials: true }).then(res => {
+        setkonfir(false)
+        return navigate(-1)
+      })
+    } catch (err) {
+
+    }
+  }
+
+  const ubahBerangkat = async () => {
+    try {
+      await api.put('/jamaah/berangkat', { id: id, berangkat: jadwal }, { withCredentials: true }).then(res => {
+        return navigate(-1)
+      })
+    } catch (err) {
+    }
+  }
+
+
+  const aturHandle = () => {
+    if (atur) {
+      return <div className="flex flex-col w-full gap-3 items-start">
+        <div className="flex flex-row gap-3 items-center">
+          <input type="date" lang="id" placeholder="red" onChange={(e) => setJadwal(e.target.value)} className="dark:focus:border-white transition-all flex h-12  items-center justify-center focus:border-navy-200 rounded-xl border border-3 border-grey-800 bg-white/0 p-3 text-sm outline-none focus:border-4" />
+          <div onClick={ubahBerangkat} className="linear flex px-7 flex-row w-fit h-fit items-center justify-center cursor-pointer rounded-xl px-4 py-2 text-white bg-brand-500">
+            <p>Atur</p>
+          </div>
+        </div>
+        <div className="flex flex-col text-navy-700 dark:text-white gap-3 text-md font-bold" >
+          <div>
+            <p>Riwayat Jadwal</p>
+          </div>
+          {riwayat? 
+          riwayat.sort((a,b)=>{
+            return b.id - a.id;
+          }).map((res,index)=>{
+
+            return <div className="flex flex-row items-center gap-3" key={index}>
+            <div className="w-2 h-2 bg-navy-700 dark:bg-white rounded-full"></div>
+          <div className="text-sm font-bold text-navy-700 dark:text-white ">
+            <p>{res.value}</p>
+            <p className="text-sm font-normal">Diubah pada : {res.dibuat_pada}</p>
+          </div>
+          </div>
+          })
+          : <div><p>Belum ada riwayat</p></div>}
+        </div>
+      </div>
+    }
+  }
+
+  const konfirHandle = () => {
+    if (konfir) {
+      return <Card extra={"items-center w-full h-fit p-[16px] bg-cover mb-4 "} >
+        <div className="flex flex-col gap-3 items-center">
+          <p>Tandai Jamaah {nama} sudah dp ? </p>
+          <div className="flex gap-3">
+            <button onClick={() => ubahDp()} className="linear flex flex-row w-full items-center justify-center cursor-pointer rounded-xl px-4 py-2 text-white bg-brand-500">Tandai</button>
+            <button onClick={() => setkonfir(false)} className="linear flex flex-row w-full items-center justify-center cursor-pointer rounded-xl px-4 py-2 text-white bg-red-500" >Batal</button></div>
+        </div>
+      </Card>
+    }
+  }
 
 
   return (
     <div>
+      {konfirHandle()}
       <Card extra={"items-center w-full h-fit p-[16px] bg-cover"}>
         {/* Background and profile */}
         <div className="relative flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
@@ -76,6 +169,14 @@ const Banner = (props) => {
             <p className="text-md font-bold text-navy-700 dark:text-white mr-2">di Daftarkan :</p>
             <p className="text-sm font-normal text-gray-700  dark:text-white">{agen}</p>
           </div>
+          {dpHandle()}
+          <div onClick={() =>{
+            setAtur(!atur)
+          }} className="linear mb-2 flex flex-row w-full items-center justify-center cursor-pointer rounded-xl px-4 py-2 text-white bg-brand-500">
+            <TbPencil className="w-6 h-6 mr-1 text-md font bold" />
+            <p>Atur Jadwal Berangkat </p>
+          </div>
+          {aturHandle()}
         </div>
       </Card>
     </div>

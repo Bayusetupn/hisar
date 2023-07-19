@@ -24,7 +24,7 @@ const DaftarAgen = () => {
   },[])
 
   return (
-    <div>
+    <div >
       <div className="mt-5 grid grid-cols-1  gap-5 xl:grid-cols-1">
       <JamaahTable
           title={"Daftar Jamaah Anda"}
