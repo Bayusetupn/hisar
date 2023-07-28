@@ -18,16 +18,16 @@ const ComplexTable = (props) => {
     setModal(false)
     if (role === "agen") {
       await api.post('agen/delete',iduser,{withCredentials: true}).then(()=>{
-        window.location.reload()
       }).catch(err=>{
         return console.log(err)
       })
+      window.location.reload()
     }else{
       await api.post('ustad/delete',iduser,{withCredentials: true}).then(()=>{
-        window.location.reload()
       }).catch(err=>{
         return console.log(err)
       })
+      window.location.reload()
     }
   }
 
