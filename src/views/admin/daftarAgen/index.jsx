@@ -28,7 +28,10 @@ const DaftarAgen = () => {
 
   useEffect(()=>{
     
-    totalA()
+    const interval = setInterval(()=>{
+      totalA()
+    },2000)
+    return ()=>clearInterval(interval)
   },[])
     
 
