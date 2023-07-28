@@ -18,16 +18,18 @@ const ComplexTable = (props) => {
     setModal(false)
     if (role === "agen") {
       await api.post('agen/delete',iduser,{withCredentials: true}).then(()=>{
+        return window.location.reload()
       }).catch(err=>{
         return console.log(err)
       })
-      window.location.reload()
+      return window.location.reload()
     }else{
       await api.post('ustad/delete',iduser,{withCredentials: true}).then(()=>{
+        return window.location.reload()
       }).catch(err=>{
         return console.log(err)
       })
-      window.location.reload()
+      
     }
   }
 
@@ -38,7 +40,7 @@ const ComplexTable = (props) => {
           <div className="flex flex-row items-center gap-2 flex-wrap">
           <TbTrash className="w-7 h-7"/>
           <p>Apakah Anda yakin ingin menghapus {name} ? </p>
-          <button onClick={deleteA} className="bg-red-500 px-4 py-2 border-radius rounded-[10px] text-white">
+          <button onClick={()=>deleteA} className="bg-red-500 px-4 py-2 border-radius rounded-[10px] text-white">
             Hapus
           </button>
           <button onClick={()=>setModal(false)} className="bg-brand-500 px-4 py-2 border-radius rounded-[10px] text-white">
