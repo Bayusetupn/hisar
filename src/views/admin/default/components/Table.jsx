@@ -26,6 +26,8 @@ const ComplexTable = (props) => {
   } catch (err) {
     console.log(err);
   }
+  alert(role+" Telah dihapus!")
+  window.location.reload()
   }
 
   const confirm = () =>{
