@@ -18,16 +18,14 @@ const ComplexTable = (props) => {
     setModal(false);
   try {
     if (role === "agen") {
-      await api.post('agen/delete', iduser, { withCredentials: true });
+      await api.post('agen/delete', iduser, { withCredentials: true }).then(window.location.reload())
     } else {
-      await api.post('ustad/delete', iduser, { withCredentials: true });
+      await api.post('ustad/delete', iduser, { withCredentials: true }).then(window.location.reload())
     }
     window.location.reload(); 
   } catch (err) {
     console.log(err);
   }
-  alert(role+" Telah dihapus!")
-  window.location.reload()
   }
 
   const confirm = () =>{
