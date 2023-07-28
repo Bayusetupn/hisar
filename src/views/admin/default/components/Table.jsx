@@ -15,23 +15,17 @@ const ComplexTable = (props) => {
   const { title, data, limit, side, klik} = props;
 
   const deleteA = async() =>{
-    setModal(false)
+    setModal(false);
+  try {
     if (role === "agen") {
-      await api.post('agen/delete',iduser,{withCredentials: true}).then(()=>{
-        return window.location.reload()
-      }).catch(err=>{
-        return console.log(err)
-      })
-      return window.location.reload()
-    }else{
-      await api.post('ustad/delete',iduser,{withCredentials: true}).then(()=>{
-        return window.location.reload()
-      }).catch(err=>{
-        return console.log(err)
-      })
-      
+      await api.post('agen/delete', iduser, { withCredentials: true });
+    } else {
+      await api.post('ustad/delete', iduser, { withCredentials: true });
     }
-    window.location.reload()
+    window.location.reload(); 
+  } catch (err) {
+    console.log(err);
+  }
   }
 
   const confirm = () =>{
