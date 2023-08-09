@@ -7,6 +7,12 @@ import notFound from '../../../assets/img/Belum di Upload.jpg'
 import { IoMdArrowBack } from 'react-icons/io'
 import { TbTrash, TbUpload } from 'react-icons/tb'
 import { MdPhotoCamera, MdUpload } from 'react-icons/md'
+import contohKtp from '../../../assets/img/placeholder/contoh_ktp.jpg'
+import contohKK from '../../../assets/img/placeholder/contoh_kk.jpg'
+import contohPaspor from '../../../assets/img/placeholder/contoh_paspor.jpg'
+import contohAkteN from '../../../assets/img/placeholder/contoh_akte_nikah.jpg'
+import contohAkteK from '../../../assets/img/placeholder/contoh_akte_lahir.jpg'
+import contohPasFoto from '../../../assets/img/placeholder/contoh_pas_foto.jpg'
 
 
 const Dokumen = () => {
@@ -71,6 +77,77 @@ const Dokumen = () => {
                 </div>
             </div>
             <div className="w-full mt-3 flex flex-row flex-wrap gap-5 lg:grid lg:grid-cols-12">
+                <div className='col-span-4 lg:!mb-0 w-full'>
+                    <Card extra={"w-full h-fit px-6 pb-6 sm:overflow-x-auto"}>
+                        <div class="relative flex flex-col items-start justify-between pt-4">
+                            <div class="text-xl font-bold text-navy-700 dark:text-white">
+                                Syarat Dokumen
+                            </div>
+                            <div className="mt-4 w-full">
+                                <div className="flex-row flex items-center  gap-2">
+                                    <div className="bg-navy-700 w-2 h-2 rounded-[20px]" ></div>
+                                    <p>KTP (Kartu Tanda Penduduk) </p>
+                                </div>
+                                <div className='my-2'>
+                                    <p>*Harus jelas, tidak tertutupi cahaya, tidak miring, tidak gelap, semua tulisan tidak
+terpotong.</p>
+                                </div>
+                                <div >
+                                    <img src={contohKtp} className=" h-40 " />
+                                </div>
+                            </div>
+                            <div className="mt-4 w-full ">
+                                <div className="flex-row flex  w-full items-center  gap-2">
+                                    <div className="bg-navy-700 w-2 h-2 rounded-[20px]" ></div>
+                                    <p>KK (Kartu Keluarga)</p>
+                                </div>
+                                <div >
+                                    <img src={contohKK} className=" h-40 " />
+                                </div>
+                            </div>
+                            <div className="mt-4 w-full ">
+                                <div className="flex-row flex items-center  gap-2">
+                                    <div className="bg-navy-700 w-2 h-2 rounded-[20px]" ></div>
+                                    <p>PASPOR</p>
+                                </div>
+                                <div className='my-2'>
+                                    <p>*Harus jelas, tidak tertutupi cahaya, tidak miring, tidak gelap, semua tulisan tidak
+terpotong.</p>
+                                </div>
+                                <div className=" h-40 " >
+                                    <img src={contohPaspor} className=" h-40 " />
+                                </div>
+                            </div>
+                            <div className="mt-4 w-full">
+                                <div className="flex-row flex items-center  gap-2">
+                                    <div className="bg-navy-700 w-2 h-2 rounded-[20px]" ></div>
+                                    <p>PASS FOTO</p>
+                                </div>
+                                <div className=" h-40 " >
+                                    <img src={contohPasFoto} className=" h-40 " />
+                                </div>
+                            </div>
+                            <div className="mt-4 w-full">
+                                <div className="flex-row flex items-center  gap-2">
+                                    <div className="bg-navy-700 w-2 h-2 rounded-[20px]" ></div>
+                                    <p>AKTE NIKAH</p>
+                                </div>
+                                <div className=" h-40 " >
+                                    <img src={contohAkteN} className=" h-40 " />
+                                </div>
+                            </div>
+                            <div className="mt-4 w-full">
+                                <div className="flex-row flex items-center  gap-2">
+                                    <div className="bg-navy-700 w-2 h-2 rounded-[20px]" ></div>
+                                    <p>AKTE KELAHIRAN</p>
+                                </div>
+                                <div className=" h-40 " >
+                                    <img src={contohAkteK} className=" h-40 " />
+                                </div>
+                            </div>
+                        </div>
+                    </Card>
+                </div>
                 <div className='col-span-4 lg:!mb-0 w-full'>
                     <Card extra={"w-full h-fit px-6 pb-6 sm:overflow-x-auto"}>
                         <div class="relative flex flex-col items-start justify-between pt-4">
