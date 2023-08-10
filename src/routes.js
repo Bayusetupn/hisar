@@ -25,6 +25,7 @@ import AgenManager from 'views/manager/daftarAgen'
 import UstadManager from 'views/manager/daftarUstad'
 import JamaahManager from 'views/manager/daftarJamaah'
 import RankManager from 'views/manager/rank'
+import Promo from 'views/admin/promo'
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
@@ -35,6 +36,7 @@ import {
   MdLeaderboard,
   MdPeople,
   MdPeopleAlt,
+  MdPictureAsPdf,
 } from "react-icons/md";
 import { IoMdPeople } from "react-icons/io";
 
@@ -167,6 +169,12 @@ const routes = [
     path: "ranking",
     icon: <MdLeaderboard className="h-6 w-6"/>,
     component: <RankAdmin/>
+  },{
+    name : "Promo",
+    layout : "/admin",
+    path: "promo",
+    icon : <MdPictureAsPdf className="h-6 w-6"/>,
+    component : <Promo/>
   }]
 
 const routes2 = [
@@ -203,7 +211,13 @@ const routes2 = [
       path: "ranking",
       icon: <MdLeaderboard className="h-6 w-6"/>,
       component: <RankManager/>
-    }
+    },{
+      name : "Promo",
+      layout : "/manager",
+      path: "promo",
+      icon : <MdPictureAsPdf className="h-6 w-6"/>,
+      component : <Promo/>
+    }]
 
   /*{
     name: "NFT Marketplace",
@@ -235,7 +249,6 @@ const routes2 = [
     icon: <MdHome className="h-6 w-6" />,
     component: <RTLDefault />,
   },*/
-];
 export {
   routes,
   login,
